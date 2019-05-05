@@ -15,22 +15,8 @@ class CmdProgram {
     private List<Float> prices;
     private Scanner sc = new Scanner(System.in);
     private PlazaImpl plaza = null;
+    private ShopImpl shop;
     private List<Shop> shops = new ArrayList<>();
-    
-    private final String[] commands = new String[] {
-        "list available products",
-        "find products by name",
-        "display the shop's owner",
-        "open the shop",
-        "close the shop",
-        "add new product to the shop",
-        "add existing products to the shop",
-        "buy a product by barcode",
-        "buy multiple products to cart",
-        "check price by barcode",
-        "show stock by barcode",
-        " leave shop to plaza"
-    };
 
     CmdProgram(String[] args) {
     }
@@ -56,7 +42,7 @@ class CmdProgram {
     
                         PlazaImpl plaza = new PlazaImpl(plazaName, ownerName);
     
-                        System.out.println("The " + plaza.getName() + " plaza was succesfully built. \n");
+                        System.out.println("The " + plaza.getName() + " plaza was successfully built. \n");
     
                         loadPlazaMenu(plaza);
                         break;
@@ -118,6 +104,7 @@ class CmdProgram {
                         System.out.println("The shop is removed. \n");
                         break;
                     case 4:
+                        loadShopMenu(plaza);
                     case 5:
                         plaza.open();
                         System.out.println("\n" + plaza.getName() + " is open. \n");
@@ -132,6 +119,55 @@ class CmdProgram {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Enter valid menu point.");
+            }
+        }
+    }
+    
+    private void loadShopMenu(PlazaImpl plaza) {
+        
+        final String[] commands = new String[] {
+            "list available products",
+            "find products by name",
+            "display the shop's owner",
+            "open the shop",
+            "close the shop",
+            "add new product to the shop",
+            "add existing products to the shop",
+            "buy a product by barcode",
+            "buy multiple products to cart",
+            "check price by barcode",
+            "show stock by barcode",
+            " leave shop to plaza"
+        };
+    
+        System.out.println("Welcome to " + shop.getName() + " plaza.\n");
+        
+        while (true) {
+    
+            printMenu(commands);
+            System.out.println("\n Enter menu key. \n");
+            String input = sc.nextLine();
+            int choice = Integer.parseInt(input);
+            
+            try {
+                switch (choice) {
+                    case  1:
+                    case  2:
+                    case  3:
+                    case  4:
+                    case  5:
+                    case  6:
+                    case  7:
+                    case  8:
+                    case  9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    default:
+                        System.out.println("Please, enter a valid number.");
+                }
+            } catch (NumberFormatException nf) {
+                System.out.println("Invalid number.");
             }
         }
     }
