@@ -22,6 +22,6 @@ public class ClothingProduct extends Product {
             "Name: " + this.getName() + "\n" +
             "Manufacturer: " + this.getManufacturer() + "\n" +
             "Material: " + this.getMaterial() + "\n" +
-            "Type: " + this.getType();
+            "Type: " + this.getType() + "\n";
     }
 }

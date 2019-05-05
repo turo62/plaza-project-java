@@ -2,10 +2,11 @@ package com.codecool.plaza.api;
 
 import com.codecool.plaza.exceptions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlazaImpl implements Plaza {
-    private List<Shop> shops;
+    private List<Shop> shops = new ArrayList<>();
     private String name;
     private String owner;
     private boolean open;
@@ -27,30 +28,29 @@ public class PlazaImpl implements Plaza {
     
     @Override
     public void addShop(Shop shop) throws ShopAlreadyExistsException, PlazaIsClosedException {
-        if (isOpen()){
-            for (Shop sh : shops) {
-                if (sh.getName().equals(shop.getName())) {
-                    throw  new ShopAlreadyExistsException("Shop already exists.");
-                }
-            }
-            shops.add(shop);
+        if (!isOpen()) {
+            throw new PlazaIsClosedException("Plaza is closed!");
         }
-        
-        throw new PlazaIsClosedException("Plaza is closed!");
+    
+        if (shops.contains(shop)) {
+            throw  new ShopAlreadyExistsException("Shop already exists.");
+        }
+        shops.add(shop);
     }
     
     @Override
     public void removeShop(Shop shop) throws NoSuchShopException, PlazaIsClosedException {
-        if (isOpen()){
-            for (Shop sh : shops) {
-                if (sh.getName().equals(shop.getName()) && sh.getOwner().equals(shop.getOwner())) {
-                    shops.remove(shop);
-                }
-            }
-            throw  new NoSuchShopException("No such shop.");
+        if (!isOpen()){
+            throw new PlazaIsClosedException("Plaza is closed!");
         }
     
-        throw new PlazaIsClosedException("Plaza is closed!");
+        for (Shop sh : shops) {
+            if (!(shop.getName().equals(sh.getName())) && !(shop.getOwner().equals(sh.getOwner()))) {
+                throw  new NoSuchShopException("No such shop.");
+            }
+            shops.remove(shop);
+        }
+        
     }
     
     @Override
@@ -74,7 +74,7 @@ public class PlazaImpl implements Plaza {
     
     @Override
     public void open() {
-        open = true;
+        this.open = true;
     }
     
     @Override
@@ -84,5 +84,14 @@ public class PlazaImpl implements Plaza {
     
     public String getName() {
         return name;
+    }
+    
+    public String getOwner() {
+        return owner;
+    }
+    
+    @Override
+    public String toString() {
+        return getName() + getOwner();
     }
 }

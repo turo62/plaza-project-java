@@ -30,6 +30,6 @@ public class FoodProduct extends Product {
             "Name: " + this.getName() + "\n" +
             "Manufacturer: " + this.getManufacturer() + "\n" +
             "Calories: " + this.getCalories() + "\n" +
-            "Best before: " + this.getBestBefore();
+            "Best before: " + this.getBestBefore() + "\n";
     }
 }
